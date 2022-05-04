@@ -4,6 +4,232 @@
     <meta charset="UTF-8" />
     <title>Overwolf Twitch Auth</title>
   </head>
+<style>
+body {
+  background-color: #0D0D0D;
+}
+
+body.page-bg {
+  background-image: url(../images/page-bg.webp);
+  background-repeat: no-repeat;
+  background-position: bottom right;
+}
+
+.header-logo {
+  position: absolute;
+  left: 10px;
+  top: 10px;
+  width: 40px;
+  height: 40px;
+  fill: #E5E5E5;
+}
+
+.main-box-container {
+  display: flex;
+  height: 100vh;
+  width: 100%;
+  justify-content: center;
+  align-items: center;
+}
+
+.main-box-container .main-box {
+  text-align: center;
+}
+
+.main-box-container .main-box h1 {
+  font-weight: bold;
+  font-size: 36px;
+  line-height: 47px;
+  margin-bottom: 16px;
+  color: #E5E5E5;
+}
+
+.main-box-container .main-box p {
+  font-size: 20px;
+  line-height: 132%;
+  color: #B2B2B2;
+}
+
+.main-box-container .main-box p.legal {
+  margin-top: 32px;
+  font-size: 12px;
+  line-height: 18px;
+}
+
+.main-box-content-container {
+  position: relative;
+  width: 420px;
+  height: 200px;
+}
+
+.main-box-content {
+  position: absolute;
+  display: flex;
+  flex-direction: column;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  align-items: center;
+  justify-content: center;
+  transition: opacity .15s .15s;
+}
+
+.main-box-content.collapsed {
+  margin-top: 20px;
+  opacity: 0;
+  transition: opacity .15s;
+  pointer-events: none;
+}
+
+.main-box .input-wrapper {
+  margin-top: 20px;
+  position: relative;
+}
+
+.main-box .input-wrapper input {
+  border: none;
+  outline: none;
+  color: #B2B2B2;
+  height: 36px;
+  width: 100%;
+  padding: 6px 12px;
+  background: #262626;
+  margin-bottom: 16px;
+}
+
+.main-box .input-wrapper input[type="password"] {
+  width: 196px;
+}
+
+.main-box .input-wrapper input:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.main-box .input-wrapper input:focus {
+  outline: none;
+  border-color: #dedede;
+}
+
+.main-box .input-wrapper input::placeholder {
+  color: #a8a8a8;
+}
+
+.main-box .input-wrapper input::-ms-input-placeholder {
+  color: #a8a8a8;
+}
+
+.main-box .input-wrapper .validation-tooltip {
+  position: absolute;
+  right: 100%;
+  bottom: 0;
+  top: 0;
+  height: 34px;
+  display: flex;
+  margin-right: 0px;
+  opacity: 0;
+  transition: .2s ease-in-out;
+  pointer-events: none;
+}
+
+.main-box .input-wrapper .validation-tooltip.shown {
+  margin-right: 10px;
+  opacity: 1;
+}
+
+.main-box .input-wrapper .validation-tooltip .validation-tooltip-box {
+  background: #1a1a1a;
+  border: 1px solid #c12e2e;
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  height: 34px;
+  padding: 0 15px;
+  white-space: nowrap;
+  font-size: 14px;
+  color: #C12E2E;
+}
+
+.main-box .input-wrapper .validation-tooltip svg {
+  width: 8px;
+  height: 34px;
+  margin-left: -1px;
+  fill: #1a1a1a;
+  stroke: #C12E2E;
+}
+
+.main-box button {
+  background: #D34037;
+  height: 34px;
+  color: white;
+  font-size: 14px;
+  padding: 6px 42px;
+  outline: none;
+  border: none;
+}
+
+.main-box button:hover {
+  background: #F24F46;
+}
+
+.main-box .footer {
+  position: absolute;
+  width: 262px;
+  right: 60px;
+  bottom: 30px;
+  font-size: 12px;
+  color: #b6b6b6;
+}
+
+.checkbox-container {
+  display: flex;
+  align-items: center;
+  margin-bottom: 32px;
+  margin-top: 10px;
+  justify-content: center;
+}
+
+.checkbox-container b {
+  position: relative;
+  width: 24px;
+  height: 24px;
+  display: block;
+  background-color: #333333;
+  transition: 150ms background-color;
+  background-position: center center;
+  background-repeat: no-repeat;
+  margin-right: 12px;
+}
+
+.checkbox-container b:hover {
+  background-color: #4D4D4D;
+}
+
+.checkbox-container input:checked + b {
+  background-color: #D34037;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='20' height='21' viewBox='0 0 20 21' fill='none'%3E%3Cpath fill-rule='evenodd' clip-rule='evenodd' d='M15.6 5.55501C16.0418 5.90007 16.1314 6.55277 15.8 7.01286L9.8 15.3434C9.62607 15.5849 9.36005 15.7359 9.07089 15.7573C8.78173 15.7787 8.49788 15.6684 8.29289 15.455L5.29289 12.331C4.90237 11.9243 4.90237 11.265 5.29289 10.8583C5.68342 10.4517 6.31658 10.4517 6.70711 10.8583L8.89181 13.1333L14.2 5.76327C14.5314 5.30318 15.1582 5.20994 15.6 5.55501Z' fill='%23F4F2FF'/%3E%3C/svg%3E");
+}
+
+.checkbox-container input:checked + b:hover {
+  background-color: #F24F46;
+}
+
+.checkbox-container span {
+  font-size: 14px;
+  display: block;
+  line-height: 22px;
+  text-align: left;
+  flex: 1;
+}
+
+@media (max-width: 600px) {
+  body.page-bg {
+    background-size: contain;
+  }
+}
+</style>
+
  <body class="page-bg">
 	  <svg class="header-logo" viewBox="0 0 30 30">
 		<path d="M28.5 15.5008C28.5207 15.5008 21.9714 11.8046 21.9521 11.6958C21.804 10.9102 21.6174 9.6129 20.714 8.94178C19.9364 8.36922 14.6875 6.00652 14.6771 5.98188C13.7107 4.55216 12.8542 3.05407 12.1148 1.5C11.4127 2.01721 10.8416 2.68565 10.4459 3.45355C10.0501 4.22146 9.84021 5.06822 9.83251 5.92825C7.25406 6.28991 4.83402 7.36229 2.85518 9.02005C7.9871 7.86914 9.46521 8.93018 9.46521 8.93018C7.78503 9.22311 6.16603 9.78638 4.67394 10.5971C2.48639 11.7741 1.5 13.1874 1.5 13.1874C1.5 13.1874 6.46752 11.7973 10.2798 13.1497C8.50202 13.3952 6.84949 14.1858 5.55962 15.408C13.4611 16.3662 17.3578 23.0774 18.9974 28.5C19.6002 18.855 14.6934 15.1921 14.6934 15.1921C16.1182 15.2921 17.9103 16.3763 19.0566 17.9896C22.552 17.604 24.4981 18.652 24.4818 18.652C24.4433 18.652 26.3716 18.0722 27.7313 17.4591C27.6143 17.2866 27.1226 16.688 26.8426 16.3531C26.8811 16.356 27.9564 16.2937 28.5 15.5008ZM17.5859 11.232C17.6629 11.2132 19.3751 10.7421 19.8638 10.9233C20.3081 11.0871 20.317 12.3249 20.317 12.3249C20.317 12.3249 19.3025 12.4641 17.5859 11.232Z" fill="#EFEFEF"></path>
