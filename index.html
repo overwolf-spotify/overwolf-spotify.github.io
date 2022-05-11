@@ -252,9 +252,12 @@
       </div>
     </div>
     <script>
+      const version = '0.0.1';
+      const uuid = 'oobhnehmecjndaihmhpgpapmficdeidicdpndcli';
+      const windowName = "login.html";
       (function () {
         window.location.replace(
-          `overwolf-spotify-auth://oobhnehmecjndaihmhpgpapmficdeidicdpndcli/Files/login.html${window.location.hash}`
+          `overwolf-spotify-auth://${uuid}/${version}/Files/${windowName}${window.location.hash}`
         );
       })();
     </script>
